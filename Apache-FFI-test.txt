@@ -1,0 +1,47 @@
+#!/bin/bash
+
+# Update package list and install Apache
+sudo apt update
+sudo apt install -y apache2 ufw curl
+
+# Enable and start Apache
+sudo systemctl enable apache2
+sudo systemctl start apache2
+
+# Create a custom HTML page
+cat <<EOF | sudo tee /var/www/html/index.html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fortinet Federal TEST</title>
+  <style>
+    body {
+      background-color: black;
+      color: red;
+      font-size: 38px;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 20%;
+      font-family: Arial, sans-serif;
+    }
+  </style>
+</head>
+<body>
+  Fortinet Federal TEST
+</body>
+</html>
+EOF
+
+# Set ownership
+sudo chown www-data:www-data /var/www/html/index.html
+
+# Configure UFW firewall
+sudo ufw allow OpenSSH
+sudo ufw allow 'Apache'
+sudo ufw --force enable
+
+# Get the server's IP address
+SERVER_IP=$(curl -s http://checkip.amazonaws.com || hostname -I | awk '{print $1}')
+
+echo "✅ Apache is installed and a custom web page is deployed."
+echo "🌐 Visit: http://$SERVER_IP/"
