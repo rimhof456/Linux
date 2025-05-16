@@ -1,0 +1,2 @@
+Download the required dependencies for the FIT traffic generator: 
+pip3 install requests_toolbelt selenium click  
