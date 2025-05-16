@@ -4,7 +4,7 @@
 import click
 import requests
 import requests_toolbelt
-import telnetlib
+#import telnetlib
 import socket
 import random
 import os
@@ -16,7 +16,7 @@ import platform
 # disable warnings in requests for cert bypass
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
-__version__ = 0.16
+__version__ =  1
 
 # some console colours
 W = '\033[0m'  # white (normal)
@@ -43,24 +43,17 @@ if platform.system() == "Windows":
 def banner():
     '''Print stylized banner'''
     print(r"""
-                          ,----,
-                        ,/   .`|
-    ,---,.   ,---,    ,`   .'  :
-  ,'  .' |,`--.' |  ;    ;     /
-,---.'   ||   :  :.'___,/    ,'
-|   |   .':   |  '|    :     |
-:   :  :  |   :  |;    |.';  ;
-:   |  |-,'   '  ;`----'  |  |
-|   :  ;/||   |  |    '   :  ;
-|   |   .''   :  ;    |   |  '
-'   :  '  |   |  '    '   :  |
-|   |  |  '   :  |    ;   |.'
-|   :  \  ;   |.'     '---'
-|   | ,'  '---'
-`----'
+TRAFFIC GENERATOR
 Firewall Inspection Tester
-Author: Alex Harvey, @meshmeld""")
+Author: Fortinet Federal CSA Team""")
     print("Version: %0.2f\n" % __version__)
+
+def test_port(ip, port=443, timeout=1):
+    try:
+        with socket.create_connection((ip, port), timeout=timeout):
+            return True
+    except (socket.timeout, socket.error, ConnectionRefusedError):
+        return False
 
 
 def checkconnection():
