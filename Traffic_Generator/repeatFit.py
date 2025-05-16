@@ -1,5 +1,5 @@
 #!/bin/sh
 
 while [ 1 ] ; do
-    ./fit.py appctrl
+    ./FIT.py appctrl
 done
