@@ -1,10 +1,8 @@
-Download the required dependencies for the FIT traffic generator: 
-sudo apt install python3-pip
-OR
-sudo pip3 install requests_toolbelt selenium click  
+To run this program:
 
-Install the traffic generator by running traffic_gen_setup.sh
-MAKE SURE that the requirements.txt file is in the same directory prior to running it.
-
-Example of how to run: 
-python FIT.py all --srcip 192.168.1.100
+sudo nano ./setup.sh
+#Populate file with the contents of setup.sh
+sudo chmod +x ./setup.sh
+./setup.sh
+cd FIT
+./repeatFIT
