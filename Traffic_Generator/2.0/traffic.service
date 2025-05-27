@@ -1,0 +1,12 @@
+[Unit]
+Description=Traffic Generator
+After=network.target
+
+[Service]
+ExecStart=/fortipoc/traffic.sh
+KillMode=control-group
+Type=forking
+TimeoutSec=600
+
+[Install]
+WantedBy=multi-user.target

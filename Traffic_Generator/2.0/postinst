@@ -1,0 +1,19 @@
+#!/bin/sh
+echo root:\$3cUr17yF4bR!c | /usr/sbin/chpasswd
+
+# First check if the LXC is ready
+NAME="LX Guest"
+NAME=${NAME} /fortipoc/lxc_ready.sh no_access_check
+
+# Link Debian package and install local packages
+ln -sfT /var/lib/dpkg /fortipoc/dpkg
+dpkg -i /fortipoc/apt/archives/*.deb
+
+# Enable traffic service to run /fortipoc/traffic.sh on every LXC boot
+cp /fortipoc/traffic.service /lib/systemd/system/
+systemctl enable traffic
+systemctl start traffic
+
+# Finish LXC initialization
+echo $NAME + " POST INSTALL completed"
+touch /postinstall_done
